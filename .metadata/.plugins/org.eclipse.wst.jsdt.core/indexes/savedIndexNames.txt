@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+C:\Users\ioler\Desktop\EserciziSpring\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3841527822.index
+3606463152.index
+1070802266.index
+3287526667.index
+1601793706.index
+1367772331.index

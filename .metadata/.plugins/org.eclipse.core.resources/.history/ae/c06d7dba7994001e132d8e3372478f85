@@ -1,0 +1,24 @@
+package corso.ListaPlayer;
+
+import javax.sql.DataSource;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+import corso.ListaPlayer.database.Database;
+import corso.ListaPlayer.database.PlayersDAO;
+import corso.ListaPlayer.modelli.Player;
+
+@Configuration
+public class Context {
+	@Bean
+	private DataSource dataSource() {
+		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
+		driverManagerDataSource.setUrl("jdbc:mysql://127.0.0.1:3306/player?useSSL=false&serverTimezone=UTC");
+		driverManagerDataSource.setUsername("root");
+		driverManagerDataSource.setPassword("root");
+		driverManagerDataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		return driverManagerDataSource;
+	}
+}

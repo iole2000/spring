@@ -1,0 +1,35 @@
+package corso.ListaPlayer.database;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class DatabaseDAO {
+    //Creo un oggetto Connection che permette di stabilire una connessione/sessione con uno specifico Database.
+    //Gli oggetti Connection hanno vari metodi accessibili che permettono di recuperare ad esempio dati di tabelle piuttosto che riguardo la connessione.
+    private Connection c;
+
+    //Creo il costruttore del DB che avrà bisogno dei parametri: 1. nome del db; 2. username sql; 3. password sql;
+    public DatabaseDAO(String nomeDB, String username, String password)
+    {
+        //Creo la variabile che salverà il percorso della connessione al db
+        String percorso =    "jdbc:mysql://localhost:3306/"    +
+                            nomeDB                             + 
+                            "?&useSSL=false"                ;
+        //Chiamo il Driver (che serve a connettere Java a SQL) tramite il suo nome di classe e poi inizializzo l'oggetto Connection 
+        //dichiarando che equivale a: 
+        //DriverManager(che serve a gestire il driver).getConnection(che è un metodo di classe che prova a stabilire una connessione al DB tramite un URL)
+        try
+        {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            this.c = DriverManager.getConnection(percorso,username,password);
+        }
+        catch(Exception e)
+        {
+            //Qui ci entro se c'è qualche problema durante il try
+            System.out.println("Catch nel costruttore della classe Database!");
+            e.printStackTrace();
+        }
+    }
+}
+
+

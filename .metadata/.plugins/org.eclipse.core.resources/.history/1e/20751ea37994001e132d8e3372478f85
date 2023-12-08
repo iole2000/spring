@@ -1,0 +1,13 @@
+package corso.ListaPlayer;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import corso.ListaPlayer.database.Database;
+import corso.ListaPlayer.database.PlayersDAO;
+import corso.ListaPlayer.modelli.Player;
+
+@Configuration
+public class Context {
+
+}

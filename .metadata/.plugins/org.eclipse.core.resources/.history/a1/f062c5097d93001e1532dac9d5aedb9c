@@ -1,0 +1,75 @@
+package corso.ListaPlayer.database;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import corso.ListaPlayer.modelli.Player;
+
+public class Database {
+    private static JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public Database(DataSource dataSource) {
+        Database.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
+    public static List<Map<String, Object>> eseguiQuery(String query, Object... params) {
+        try {
+            return jdbcTemplate.queryForList(query, params);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static boolean eseguiUpdate(String query, Object... params) {
+        try {
+            jdbcTemplate.update(query, params);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // Aggiungi un metodo per caricare le mappe associate a un giocatore
+    public static Set<Map<String, Object>> loadMapsForPlayer(int playerId) {
+        // Implementa la logica per caricare le mappe associate al giocatore dal database
+        // Utilizza una query per recuperare le mappe associate a playerId
+        // Aggiungi le mappe a un Set e restituisci il Set
+        // In alternativa, se hai una classe MapDAO, puoi chiamare un metodo per caricare le mappe
+        // Esempio di query:
+        // "SELECT chiave, valore FROM VARIANTI WHERE id_player = ?"
+        // Sostituisci ? con il playerId
+        return new HashSet<>(); // Placeholder, sostituisci con la logica reale
+    }
+
+    // Aggiungi un metodo per aggiornare le mappe associate a un giocatore nel database
+    public static boolean updateMapsForPlayer(int playerId, Set<Map<String, Object>> mappe) {
+        // Implementa la logica per aggiornare le mappe associate al giocatore nel database
+        // Utilizza una tabella di join o qualsiasi meccanismo che hai implementato per la relazione molti a molti
+
+        // Esempio di pseudo-codice:
+        // 1. "DELETE FROM VARIANTI WHERE id_player = ?"
+        //    Sostituisci ? con il playerId
+        // 2. Itera su mappe e inseriscile nel database
+        //    "INSERT INTO VARIANTI (id_player, chiave, valore) VALUES (?, ?, ?)"
+        //    Sostituisci ? con i valori corrispondenti
+
+        // Esempio di implementazione (sostituisci con il tuo codice effettivo):
+        // Database.eseguiUpdate("DELETE FROM VARIANTI WHERE id_player = ?", playerId);
+        // for (Map<String, Object> mappa : mappe) {
+        //     Database.eseguiUpdate("INSERT INTO VARIANTI (id_player, chiave, valore) VALUES (?, ?, ?)",
+        //             playerId, mappa.get("chiave"), mappa.get("valore"));
+        // }
+
+        return true; // Restituisci true se tutto è andato bene
+    }
+}

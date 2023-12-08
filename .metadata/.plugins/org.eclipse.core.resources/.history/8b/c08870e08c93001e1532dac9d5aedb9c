@@ -1,0 +1,3 @@
+percorso;jdbc:mysql://127.0.0.1:3306/Player?user=root
+user;root
+pass;root

@@ -1,0 +1,46 @@
+package corso.ListaPlayer.database;
+
+import java.util.ArrayList;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+@Service
+public class Database {
+	private static JdbcTemplate jdbcTemplate;
+	
+@Autowired
+	public Database() {
+		DataSource dataSource = DataSourceBuilder.create().driverClassName("com.mysql.cj.jdbc.Driver")
+				.url("jdbc:mysql://127.0.0.1:3306/?user=root").username("root").password("root").build();
+		jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+
+	public static List<Map<String, Object>> eseguiQuery(String query, Object... params) {
+		try {
+			return jdbcTemplate.queryForList(query, params);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<>();
+	}
+
+	public static boolean eseguiUpdate(String query, Object... params) {
+		try {
+			jdbcTemplate.update(query, params);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+}

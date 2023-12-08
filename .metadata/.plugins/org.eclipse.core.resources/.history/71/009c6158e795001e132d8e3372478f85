@@ -1,0 +1,58 @@
+package corso.ListaPlayer.database;
+
+
+
+	import org.springframework.beans.factory.annotation.Autowired;
+	import org.springframework.jdbc.core.BeanPropertyRowMapper;
+	import org.springframework.jdbc.core.JdbcTemplate;
+	import org.springframework.stereotype.Repository;
+
+import corso.ListaPlayer.modelli.Team;
+
+import java.util.HashMap;
+import java.util.List;
+
+	@Repository
+	public class TeamDAO {
+
+	    private final JdbcTemplate jdbcTemplate;
+
+	    @Autowired
+	    public TeamDAO(JdbcTemplate jdbcTemplate) {
+	        this.jdbcTemplate = jdbcTemplate;
+	    }
+
+	    public List<Team> getAllTeams() {
+	        String sql = "SELECT * FROM teams";
+	        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Team.class));
+	    }
+
+	    @SuppressWarnings("deprecation")
+		public Team getTeamById(int teamId) {
+	        String sql = "SELECT * FROM teams WHERE id = ?";
+	        return jdbcTemplate.queryForObject(sql, new Object[]{teamId}, new BeanPropertyRowMapper<>(Team.class));
+	    }
+
+	    public void addTeam(Team team) {
+	        String sql = "INSERT INTO teams (nome) VALUES (?)";
+	        jdbcTemplate.update(sql, team.getNome());
+	    }
+
+	public boolean create(HashMap<String, String> parametri) {
+		String query = "insert into Tean(nome, id) values(?,?,?,?)";
+		return update(query, parametri.get("nome"), parametri.get("id"), query, query);
+	}
+	    // Altri metodi per la gestione delle operazioni CRUD
+
+	private boolean update(String query, String string, String string2, String query2, String query3) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	    // ...
+
+	}
+
+
